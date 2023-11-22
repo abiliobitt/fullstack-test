@@ -17,6 +17,7 @@ import Header from '../../components/ui/header';
 import Modal from '../../components/ui/modal';
 import ClientList from '../../components/common/clientList';
 import Logo from '../../assets/img/logo.jpg'
+import CreateUserForm from "../../components/common/createUserForm";
 
 const drawerWidth = 240;
 
@@ -92,7 +93,7 @@ const Home = (props: Props) => {
         </Box>
       </Box>
       <Modal show={modal} close={Toggle} title="Dynamic Title">
-        This is modal content
+        <CreateUserForm />
       </Modal>
     </>
   );

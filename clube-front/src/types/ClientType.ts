@@ -1,7 +1,8 @@
-type ClientAddress = {
+export type ClientAddress = {
     id: string,
     city: string,
-    postCode: string,
+    zipcode: string,
+    state: string,
     streetName: string,
     streetNumber: number,
     complement: string,
@@ -12,7 +13,23 @@ export type ClientType = {
     id: string,
     name: string,
     lastName: string,
-    cpf: number,
+    cpf: string,
     address: ClientAddress[];
-    isClubMember: boolean;
+    isClubMember?: boolean;
+}
+
+export type ClientCreationType = {
+    name: string,
+    lastName: string,
+    cpf: string,
+    isClubMember?: boolean;
+    address: {
+        state: string,
+        city: string,
+        streetName: string,
+        streetNumber: number,
+        complement?: string,
+        referencePoint?: string
+        zipcode: string,
+    }
 }
