@@ -15,6 +15,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import Header from '../../components/ui/header';
 import Modal from '../../components/ui/modal';
+import useModal from '../../components/ui/modal/useModal'
 import CustomerList from '../../components/common/customerList';
 import Logo from '../../assets/img/logo.jpg'
 import CreateUserForm from "../../components/common/createCustomerForm";
@@ -28,12 +29,18 @@ interface Props {
 
 const Home = (props: Props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [customers, setCustomers] = useState<CustomerType[]|null>();
-  const Toggle = () => setModal(!modal);
+  const [customers, setCustomers] = useState<CustomerType[] | null>();
+  const { isShowing, toggle, hide, title } = useModal();
+
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleOpenModal = (title: string) => {
+    toggle(title)
+    setMobileOpen(!mobileOpen);
+  }
   useEffect(() => {
     getCustomers()
       .then(response => {
@@ -41,13 +48,14 @@ const Home = (props: Props) => {
         setCustomers(response);
       })
   }, []);
+
   const drawer = (
     <div>
       <img src={Logo} alt="Logotipo" />
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={Toggle}>
+          <ListItemButton onClick={() => handleOpenModal('Cadastrar Usuário')}>
             <ListItemIcon>
               <PersonAddIcon />
             </ListItemIcon>
@@ -101,8 +109,8 @@ const Home = (props: Props) => {
           {customers && <CustomerList customers={customers} />}
         </Box>
       </Box>
-      <Modal show={modal} close={Toggle} title="Dynamic Title">
-        <CreateUserForm />
+      <Modal isShowing={isShowing} title={title} hide={hide}>
+          <CreateUserForm />
       </Modal>
     </>
   );

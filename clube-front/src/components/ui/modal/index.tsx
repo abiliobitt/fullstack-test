@@ -1,43 +1,41 @@
-import { createPortal } from "react-dom";
-import { ReactNode } from 'react';
-import { Button } from "@mui/material";
+import React, { FC, ReactElement } from 'react';
+import ReactDOM from 'react-dom';
 import CloseIcon from '@mui/icons-material/Close';
 
-import "./modal.scss";
+import './modal.scss';
 
-type ModalProps = {
-    show: boolean,
-    close: Function,
-    title: string,
-    children: ReactNode
+export interface ModalProps {
+    title: string
+    isShowing: boolean
+    hide: Function
+    children: ReactElement
 }
 
-const Modal = ({ show, close, title, children }: ModalProps) => {
-    return createPortal(
-        <>
-            <div
-                className={`modalContainer ${show ? "show" : ""} `}
-                onClick={() => close()}
-            >
-                <div className="modal" onClick={(e) => e.stopPropagation()}>
-                    <button className="close" onClick={() => close()}>
+const Modal: FC<ModalProps> = ({ isShowing, title, hide, children, ...restProps }) => {
+    const backgroundHandleClick = (event: any) => {
+        if(event.target !== event.currentTarget){
+            event.stopPropagation();
+        }
+        else {
+            hide();
+        }
+    }
+
+    return isShowing
+    ? ReactDOM.createPortal(
+        <React.Fragment {...restProps}>
+            <div className='modalBackground' onClick={backgroundHandleClick}>
+                <div className='modalContainer'>
+                    <button className="close" onClick={() => hide()}>
                         <CloseIcon />
                     </button>
-                    <header className="modal_header">
-                        <h2 className="modal_header-title">{title}</h2>
-                    </header>
-                    <main className="modal_content">{children}</main>
-                    <footer className="modal_footer">
-                        <Button variant="contained" color="success">
-                            Enviar
-                        </Button>
-                        <Button variant="contained" onClick={() => close()}>Cancelar</Button>
-                    </footer>
+                    <h1>{title}</h1>
+                    {children}
                 </div>
             </div>
-        </>,
-        document.body
-    );
-};
+        </React.Fragment>, document.body
+    )
+    : null
+}
 
-export default Modal;
+export default Modal
