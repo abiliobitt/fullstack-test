@@ -11,7 +11,7 @@ import {
 } from '@mui/material/';
 import EditIcon from '@mui/icons-material/Edit';
 import Groups2Icon from '@mui/icons-material/Groups2';
-import { ClientType } from '../../../types/ClientType';
+import { CustomerType } from '../../../types/CustomerType';
 
 function createData(
     id: string,
@@ -31,10 +31,10 @@ const rows = [
     createData("e2cc6ed8-556e-4ac3-b43d-5b9039706ec0", 'Cupcake', 305, 3.7, 67, 4.3),
     createData("0fbe8ee8-d548-4a4c-80f6-7ba3c3596ab1", 'Gingerbread', 356, 16.0, 49, 3.9),
 ];
-type ClientListProps = {
-    customers: ClientType[];
+type CustomerListProps = {
+    customers: CustomerType[];
 }
-const ClientList = ({customers}: ClientListProps) => {
+const CustomerList = ({customers}: CustomerListProps) => {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -68,4 +68,4 @@ const ClientList = ({customers}: ClientListProps) => {
     );
 }
 
-export default ClientList;
+export default CustomerList;

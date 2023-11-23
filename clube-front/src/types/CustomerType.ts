@@ -1,4 +1,4 @@
-export type ClientAddress = {
+export type CustomerAddress = {
     id: string,
     city: string,
     zipcode: string,
@@ -9,16 +9,16 @@ export type ClientAddress = {
     referencePoint: string
 }
 
-export type ClientType = {
+export type CustomerType = {
     id: string,
     name: string,
     lastName: string,
     cpf: string,
-    address: ClientAddress[];
+    address: CustomerAddress[];
     isClubMember?: boolean;
 }
 
-export type ClientCreationType = {
+export type CustomerCreationType = {
     name: string,
     lastName: string,
     cpf: string,

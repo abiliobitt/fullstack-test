@@ -15,10 +15,10 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import Header from '../../components/ui/header';
 import Modal from '../../components/ui/modal';
-import ClientList from '../../components/common/clientList';
+import CustomerList from '../../components/common/customerList';
 import Logo from '../../assets/img/logo.jpg'
-import CreateUserForm from "../../components/common/createUserForm";
-import { ClientType } from "../../types/ClientType";
+import CreateUserForm from "../../components/common/createCustomerForm";
+import { CustomerType } from "../../types/CustomerType";
 import { getCustomers } from "../../services/getCustomers";
 
 const drawerWidth = 240;
@@ -29,7 +29,7 @@ interface Props {
 const Home = (props: Props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [modal, setModal] = useState(false);
-  const [customers, setCustomers] = useState<ClientType[]|null>();
+  const [customers, setCustomers] = useState<CustomerType[]|null>();
   const Toggle = () => setModal(!modal);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -98,7 +98,7 @@ const Home = (props: Props) => {
           sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
           <Toolbar />
-          {customers && <ClientList customers={customers} />}
+          {customers && <CustomerList customers={customers} />}
         </Box>
       </Box>
       <Modal show={modal} close={Toggle} title="Dynamic Title">

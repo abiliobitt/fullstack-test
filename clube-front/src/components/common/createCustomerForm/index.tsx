@@ -5,16 +5,16 @@ import {TextField, Alert, FormControlLabel, Checkbox} from '@mui/material/';
 import createUserSchema from "./schema";
 
 import "./style.scss"
-import { ClientCreationType } from "../../../types/ClientType";
+import { CustomerCreationType } from "../../../types/CustomerType";
 
-const CreateUserForm: React.FC = () => {
+const CreateCustomerForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ClientCreationType>({ resolver: yupResolver(createUserSchema) });
+  } = useForm<CustomerCreationType>({ resolver: yupResolver(createUserSchema) });
 
-  const onSubmit = (data: ClientCreationType) => {
+  const onSubmit = (data: CustomerCreationType) => {
     console.log(data);
   };
 
@@ -141,4 +141,4 @@ const CreateUserForm: React.FC = () => {
   );
 };
 
-export default CreateUserForm;
+export default CreateCustomerForm;
