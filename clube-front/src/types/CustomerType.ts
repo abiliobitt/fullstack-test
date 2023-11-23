@@ -10,7 +10,7 @@ export type CustomerAddress = {
 }
 
 export type CustomerType = {
-    id: string,
+    _id: string,
     name: string,
     lastName: string,
     cpf: string,

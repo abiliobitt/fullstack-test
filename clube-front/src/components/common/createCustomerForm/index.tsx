@@ -5,21 +5,61 @@ import { TextField, Alert, FormControlLabel, Checkbox, Button } from '@mui/mater
 import createUserSchema from "./schema";
 
 import "./style.scss"
-import { CustomerCreationType } from "../../../types/CustomerType";
+import { CustomerCreationType, CustomerType } from "../../../types/CustomerType";
 import { createCustomer } from "../../../services/createCustomer";
 import { useState } from "react";
+import { updateCustomer } from "../../../services/updateCustomer";
 
-const CreateCustomerForm: React.FC = () => {
+type CustomerFormProps = {
+  customerData?: CustomerCreationType | null;
+  isCustomerUpdate?: boolean;
+}
+
+const CreateCustomerForm = ({ customerData, isCustomerUpdate }: CustomerFormProps) => {
+  const isEdit = () => {
+    if (customerData) {
+      return customerData
+    } else {
+      return {
+        name: undefined,
+        lastName: undefined,
+        cpf: undefined,
+        isClubMember: false,
+        address: {
+          state: undefined,
+          city: undefined,
+          streetName: undefined,
+          streetNumber: undefined,
+          complement: undefined,
+          referencePoint: undefined,
+        zipcode: undefined,
+        }
+      }
+    }
+  }
   const [created, setCreated] = useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CustomerCreationType>({ resolver: yupResolver(createUserSchema) });
+  } = useForm<CustomerCreationType>({ resolver: yupResolver(createUserSchema), defaultValues: isEdit() });
 
-  const onSubmit = (data: CustomerCreationType) => {
+  const handleCreateCustomer = (data: CustomerCreationType) => {
     createCustomer(data)
-      .then(response => setCreated(true))
+    .then(response => setCreated(true))
+  }
+  
+  const handleUpdateCustomer = (data: CustomerType) => {
+    updateCustomer(data)
+    .then(response => setCreated(true))
+  }
+  const onSubmit = (data: CustomerCreationType|CustomerType) => {
+    if (!isCustomerUpdate) {
+      handleCreateCustomer(data as CustomerCreationType)
+    }
+    if(isCustomerUpdate) {
+      handleUpdateCustomer(data as CustomerType)
+    }
   };
 
   return (
