@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {
     Table,
     TableBody,
@@ -13,24 +12,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import Groups2Icon from '@mui/icons-material/Groups2';
 import { CustomerType } from '../../../types/CustomerType';
 
-function createData(
-    id: string,
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-) {
-    return { id, name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData("8802fe97-667f-4eec-9964-e9f53cdd5d87", 'Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData("6923dfc3-e877-454b-a3cd-ca15c63ffba6", 'Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData("160409c6-02b6-4e5a-bd39-d8efe4344fb6", 'Eclair', 262, 16.0, 24, 6.0),
-    createData("e2cc6ed8-556e-4ac3-b43d-5b9039706ec0", 'Cupcake', 305, 3.7, 67, 4.3),
-    createData("0fbe8ee8-d548-4a4c-80f6-7ba3c3596ab1", 'Gingerbread', 356, 16.0, 49, 3.9),
-];
 type CustomerListProps = {
     customers: CustomerType[];
 }
