@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   CssBaseline,
@@ -18,6 +18,8 @@ import Modal from '../../components/ui/modal';
 import ClientList from '../../components/common/clientList';
 import Logo from '../../assets/img/logo.jpg'
 import CreateUserForm from "../../components/common/createUserForm";
+import { ClientType } from "../../types/ClientType";
+import { getCustomers } from "../../services/getCustomers";
 
 const drawerWidth = 240;
 
@@ -27,11 +29,18 @@ interface Props {
 const Home = (props: Props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [modal, setModal] = useState(false);
+  const [customers, setCustomers] = useState<ClientType[]|null>();
   const Toggle = () => setModal(!modal);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  useEffect(() => {
+    getCustomers()
+      .then(response => {
+        console.log(response)
+        setCustomers(response);
+      })
+  }, []);
   const drawer = (
     <div>
       <img src={Logo} alt="Logotipo" />
@@ -89,7 +98,7 @@ const Home = (props: Props) => {
           sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
           <Toolbar />
-          <ClientList />
+          {customers && <ClientList customers={customers} />}
         </Box>
       </Box>
       <Modal show={modal} close={Toggle} title="Dynamic Title">

@@ -10,6 +10,8 @@ import {
     Button
 } from '@mui/material/';
 import EditIcon from '@mui/icons-material/Edit';
+import Groups2Icon from '@mui/icons-material/Groups2';
+import { ClientType } from '../../../types/ClientType';
 
 function createData(
     id: string,
@@ -29,35 +31,35 @@ const rows = [
     createData("e2cc6ed8-556e-4ac3-b43d-5b9039706ec0", 'Cupcake', 305, 3.7, 67, 4.3),
     createData("0fbe8ee8-d548-4a4c-80f6-7ba3c3596ab1", 'Gingerbread', 356, 16.0, 49, 3.9),
 ];
-
-const ClientList = () => {
+type ClientListProps = {
+    customers: ClientType[];
+}
+const ClientList = ({customers}: ClientListProps) => {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell align="right">CPF</TableCell>
+                        <TableCell align="right">Membro do clube</TableCell>
+                        <TableCell align="right">Endereços cadastrados</TableCell>
                         <TableCell align="right">Edit</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {customers.map((customer) => (
                         <TableRow
-                            key={row.name}
+                            key={customer.name}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                {row.name}
+                            {customer.name + ' ' + customer.lastName}
                             </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
-                            <TableCell align="right"><Button onClick={() => console.log(row)}><EditIcon /></Button></TableCell>
+                            <TableCell align="right">{customer.cpf}</TableCell>
+                            <TableCell align="right">{customer.isClubMember ? <Groups2Icon color="success" /> : <Groups2Icon color="error" />}</TableCell>
+                            <TableCell align="right">{customer.address.length}</TableCell>
+                            <TableCell align="right"><Button onClick={() => console.log(customer)}><EditIcon /></Button></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
