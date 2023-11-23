@@ -19,7 +19,7 @@ import CustomerList from '../../components/common/customerList';
 import Logo from '../../assets/img/logo.jpg'
 import CreateUserForm from "../../components/common/createCustomerForm";
 import { CustomerType } from "../../types/CustomerType";
-import { getCustomers } from "../../services/getCustomers";
+import { getCustomers } from "../../services/getCustomer";
 
 const drawerWidth = 240;
 
