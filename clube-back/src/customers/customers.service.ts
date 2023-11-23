@@ -1,4 +1,4 @@
-import { Get, Injectable, Param, ParseUUIDPipe } from '@nestjs/common';
+import { Body, Get, Injectable, Param, ParseUUIDPipe, Patch, Put } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -23,9 +23,9 @@ export class CustomersService {
   async findOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<Customer> {
     return this.customerModel.findById(id);
   }
-
-  async update(id: string, updateCustomerDto: UpdateCustomerDto): Promise<Customer> {
-    console.log('aquuuuuuuiiiiiiiiii ------->>>>>', this.customerModel.findById(id))
+  
+  @Put()
+  async update(@Body('_id') id: string, @Body() updateCustomerDto: UpdateCustomerDto): Promise<Customer> {
     return this.customerModel.findByIdAndUpdate(id, updateCustomerDto);
   }
 
