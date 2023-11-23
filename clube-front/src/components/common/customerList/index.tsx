@@ -13,7 +13,7 @@ import Groups2Icon from '@mui/icons-material/Groups2';
 import { CustomerCreationType, CustomerType } from '../../../types/CustomerType';
 import useModal from '../../ui/modal/useModal';
 import { useState } from 'react';
-import CreateCustomerForm from '../createCustomerForm';
+import CustomerForm from '../CustomerForm';
 import Modal from '../../ui/modal';
 
 type CustomerListProps = {
@@ -61,7 +61,7 @@ const CustomerList = ({ customers }: CustomerListProps) => {
                 </Table>
             </TableContainer>
             <Modal isShowing={isShowing} title={title} hide={hide}>
-                <CreateCustomerForm customerData={selectedCustomer} isCustomerUpdate />
+                <CustomerForm customerData={selectedCustomer} isCustomerUpdate />
             </Modal>
         </>
     );

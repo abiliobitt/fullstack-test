@@ -18,7 +18,7 @@ import Modal from '../../components/ui/modal';
 import useModal from '../../components/ui/modal/useModal'
 import CustomerList from '../../components/common/customerList';
 import Logo from '../../assets/img/logo.jpg'
-import CreateUserForm from "../../components/common/createCustomerForm";
+import CreateUserForm from "../../components/common/CustomerForm";
 import { CustomerType } from "../../types/CustomerType";
 import { getCustomers } from "../../services/getCustomer";
 

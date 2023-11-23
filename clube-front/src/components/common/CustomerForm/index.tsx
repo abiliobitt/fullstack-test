@@ -15,7 +15,7 @@ type CustomerFormProps = {
   isCustomerUpdate?: boolean;
 }
 
-const CreateCustomerForm = ({ customerData, isCustomerUpdate }: CustomerFormProps) => {
+const CustomerForm = ({ customerData, isCustomerUpdate }: CustomerFormProps) => {
   const isEdit = () => {
     if (customerData) {
       return customerData
@@ -190,4 +190,4 @@ const CreateCustomerForm = ({ customerData, isCustomerUpdate }: CustomerFormProp
   );
 };
 
-export default CreateCustomerForm;
+export default CustomerForm;
