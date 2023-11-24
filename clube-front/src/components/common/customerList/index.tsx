@@ -23,14 +23,16 @@ const CustomerList = ({ customers }: CustomerListProps) => {
     const [selectedCustomer, setSelectedCustomer] = useState();
     const { isShowing, toggle, hide, title } = useModal();
     const handleOpenModal = (title: string, customer: any) => {
-        customer.address = customer.address[0]
-        setSelectedCustomer(customer)
+        const clone = structuredClone(customer);
+        clone.address = customer.address[0]
+        setSelectedCustomer(clone)
         console.log(customer)
         toggle(title)
     }
 
     return (
         <>
+        {console.log(customers)}
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
