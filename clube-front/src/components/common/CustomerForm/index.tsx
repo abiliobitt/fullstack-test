@@ -5,13 +5,13 @@ import { TextField, Alert, FormControlLabel, Checkbox, Button } from '@mui/mater
 import createUserSchema from "./schema";
 
 import "./style.scss"
-import { CustomerCreationType, CustomerType } from "../../../types/CustomerType";
-import { createCustomer } from "../../../services/createCustomer";
+import { CustomerType } from "../../../types/CustomerType";
+import { createCustomer } from "../../../services/customer/createCustomer";
 import { useState } from "react";
-import { updateCustomer } from "../../../services/updateCustomer";
+import { updateCustomer } from "../../../services/customer/updateCustomer";
 
 type CustomerFormProps = {
-  customerData?: CustomerCreationType | null;
+  customerData?: CustomerType | null;
   isCustomerUpdate?: boolean;
 }
 
@@ -25,14 +25,14 @@ const CustomerForm = ({ customerData, isCustomerUpdate }: CustomerFormProps) => 
         lastName: undefined,
         cpf: undefined,
         isClubMember: false,
-        address: {
+        address:{
           state: undefined,
           city: undefined,
           streetName: undefined,
           streetNumber: undefined,
           complement: undefined,
           referencePoint: undefined,
-        zipcode: undefined,
+          zipcode: undefined,
         }
       }
     }
@@ -42,9 +42,9 @@ const CustomerForm = ({ customerData, isCustomerUpdate }: CustomerFormProps) => 
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CustomerCreationType>({ resolver: yupResolver(createUserSchema), defaultValues: isEdit() });
+  } = useForm<CustomerType>({ resolver: yupResolver(createUserSchema), defaultValues: isEdit() });
 
-  const handleCreateCustomer = (data: CustomerCreationType) => {
+  const handleCreateCustomer = (data: CustomerType) => {
     createCustomer(data)
     .then(response => setCreated(true))
   }
@@ -53,12 +53,12 @@ const CustomerForm = ({ customerData, isCustomerUpdate }: CustomerFormProps) => 
     updateCustomer(data)
     .then(response => setCreated(true))
   }
-  const onSubmit = (data: CustomerCreationType|CustomerType) => {
+  const onSubmit = (data: CustomerType) => {
     if (!isCustomerUpdate) {
-      handleCreateCustomer(data as CustomerCreationType)
+      handleCreateCustomer(data)
     }
     if(isCustomerUpdate) {
-      handleUpdateCustomer(data as CustomerType)
+      handleUpdateCustomer(data)
     }
   };
 

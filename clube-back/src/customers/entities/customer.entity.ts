@@ -2,12 +2,12 @@ export class Customer {
     name: string;
     lastName: string;
     cpf: string;
-    address: CustomerAddress[];
+    address: CustomerAddress;
     isClubMember?: boolean;
 }
 
 export interface CustomerAddress {
-    _id: number;
+    _id?: string;
     city: string;
     zipcode: string;
     state: string;

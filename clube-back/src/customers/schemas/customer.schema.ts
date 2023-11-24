@@ -38,8 +38,8 @@ export class Customer {
   @Prop({ required: true })
   cpf: string;
 
-  @Prop({ type: [CustomerAddressSchema], required: true })
-  address: CustomerAddress[];
+  @Prop({ type: CustomerAddressSchema, required: true })
+  address: CustomerAddress;
 
   @Prop()
   isClubMember?: boolean;

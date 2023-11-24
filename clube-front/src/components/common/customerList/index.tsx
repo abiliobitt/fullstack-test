@@ -10,7 +10,7 @@ import {
 } from '@mui/material/';
 import EditIcon from '@mui/icons-material/Edit';
 import Groups2Icon from '@mui/icons-material/Groups2';
-import { CustomerCreationType, CustomerType } from '../../../types/CustomerType';
+import { CustomerType } from '../../../types/CustomerType';
 import useModal from '../../ui/modal/useModal';
 import { useState } from 'react';
 import CustomerForm from '../CustomerForm';
@@ -20,19 +20,16 @@ type CustomerListProps = {
     customers: CustomerType[];
 }
 const CustomerList = ({ customers }: CustomerListProps) => {
-    const [selectedCustomer, setSelectedCustomer] = useState();
+    const [selectedCustomer, setSelectedCustomer] = useState<CustomerType>();
     const { isShowing, toggle, hide, title } = useModal();
-    const handleOpenModal = (title: string, customer: any) => {
-        const clone = structuredClone(customer);
-        clone.address = customer.address[0]
-        setSelectedCustomer(clone)
+    const handleOpenModal = (title: string, customer: CustomerType) => {
+        setSelectedCustomer(customer)
         console.log(customer)
         toggle(title)
     }
 
     return (
         <>
-        {console.log(customers)}
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -45,8 +42,12 @@ const CustomerList = ({ customers }: CustomerListProps) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {customers.map((customer) => (
-                            <TableRow
+                        {customers.map((customer) => {
+
+                            const { streetName, streetNumber, zipcode } = customer.address
+                            const address = `${streetName} Nº ${streetNumber} CEP: ${zipcode}`
+                            console.log('customerlist', customer)
+                            return (<TableRow
                                 key={customer.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
@@ -55,10 +56,11 @@ const CustomerList = ({ customers }: CustomerListProps) => {
                                 </TableCell>
                                 <TableCell align="right">{customer.cpf}</TableCell>
                                 <TableCell align="right">{customer.isClubMember ? <Groups2Icon color="success" /> : <Groups2Icon color="error" />}</TableCell>
-                                <TableCell align="right">{customer.address.length}</TableCell>
+                                <TableCell align="right">{address}</TableCell>
                                 <TableCell align="right"><Button onClick={() => handleOpenModal('Editar Cliente', customer)}><EditIcon /></Button></TableCell>
                             </TableRow>
-                        ))}
+                            )
+                        })}
                     </TableBody>
                 </Table>
             </TableContainer>

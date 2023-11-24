@@ -1,7 +1,7 @@
 import axios from "axios";
-import { CustomerCreationType } from "../types/CustomerType";
+import { CustomerType } from "../../types/CustomerType";
 
-export const createCustomer = async (customer: CustomerCreationType) => {
+export const createCustomer = async (customer: CustomerType) => {
   const data = await axios.post('http://localhost:3000/customers/', customer)
     .then(response => response.data)
     .catch(error => error);

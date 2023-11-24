@@ -19,8 +19,7 @@ import useModal from '../../components/ui/modal/useModal'
 import CustomerList from '../../components/common/customerList';
 import Logo from '../../assets/img/logo.jpg'
 import CreateUserForm from "../../components/common/CustomerForm";
-import { CustomerType } from "../../types/CustomerType";
-import { getCustomers } from "../../services/getCustomer";
+import { useCustomers } from "../../contexts/customers";
 
 const drawerWidth = 240;
 
@@ -29,9 +28,8 @@ interface Props {
 
 const Home = (props: Props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [customers, setCustomers] = useState<CustomerType[] | null>();
   const { isShowing, toggle, hide, title } = useModal();
-
+  const { getCustomers, loading, customers} = useCustomers()
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -41,14 +39,7 @@ const Home = (props: Props) => {
     toggle(title)
     setMobileOpen(!mobileOpen);
   }
-  useEffect(() => {
-    getCustomers()
-      .then(response => {
-        console.log(response)
-        setCustomers(response);
-      })
-  }, []);
-
+  
   const drawer = (
     <div>
       <img src={Logo} alt="Logotipo" />
